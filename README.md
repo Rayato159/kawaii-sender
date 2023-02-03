@@ -28,7 +28,7 @@ import (
 	"fmt"
 	"time"
 
-	kawaiihttp "github.com/Rayato159/kawaii-sender"
+	"github.com/Rayato159/kawaii-sender"
 )
 
 type testBody struct {

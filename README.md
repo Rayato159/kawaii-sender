@@ -28,7 +28,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Rayato159/kawaii-sender"
+	kawaiihttp "github.com/Rayato159/kawaii-sender"
 )
 
 type testBody struct {
@@ -37,27 +37,28 @@ type testBody struct {
 
 func main() {
 	// GET, POST, PUT, PATCH, DELETE
-	method := kawaiihttp.Get
+	methodGet := kawaiihttp.Get
+	methodPost := kawaiihttp.Post
 
 	// The url is expect for http protocol only
 	url := "http://localhost:3000"
 	timeout := time.Second * 120
 
 	// Http Get
-	g, err := kawaiihttp.FireHttpRequest(method, url, nil, timeout)
+	g, err := kawaiihttp.FireHttpRequest(methodGet, url, nil, timeout)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(g)
+	fmt.Println(string(g))
 
 	// Http Post
 	body := &testBody{
 		Message: "Hello, Post!",
 	}
-	p, err := kawaiihttp.FireHttpRequest(method, url, body, timeout)
+	p, err := kawaiihttp.FireHttpRequest(methodPost, url, body, timeout)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(p)
+	fmt.Println(string(p))
 }
 ```

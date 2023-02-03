@@ -28,5 +28,6 @@ go.work
 # Temp
 /tmp
 /test
+/app
 
 # End of https://www.toptal.com/developers/gitignore/api/go

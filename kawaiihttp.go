@@ -36,9 +36,9 @@ func FireHttpRequest(method HttpMethod, url string, body any, timeout time.Durat
 	defer cancel()
 
 	// Url validation
-	if err := utils.UrlValidate(url); err != nil {
-		return nil, err
-	}
+	// if err := utils.UrlValidate(url); err != nil {
+	// 	return nil, err
+	// }
 
 	// Body validation if that method is not allowed
 	if err := utils.BodyValidate(string(method), body); err != nil {

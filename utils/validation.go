@@ -2,7 +2,6 @@ package utils
 
 import (
 	"fmt"
-	"regexp"
 )
 
 func BodyValidate(method string, body any) error {
@@ -20,16 +19,16 @@ func BodyValidate(method string, body any) error {
 	return nil
 }
 
-func UrlValidate(url string) error {
-	match, err := regexp.MatchString(
-		"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
-		url,
-	)
-	if err != nil {
-		return fmt.Errorf("regexp error: %v", err)
-	}
-	if !match {
-		return fmt.Errorf("http url pattern error: %s", url)
-	}
-	return nil
-}
+// func UrlValidate(url string) error {
+// 	match, err := regexp.MatchString(
+// 		"https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+// 		url,
+// 	)
+// 	if err != nil {
+// 		return fmt.Errorf("regexp error: %v", err)
+// 	}
+// 	if !match {
+// 		return fmt.Errorf("http url pattern error: %s", url)
+// 	}
+// 	return nil
+// }

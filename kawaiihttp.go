@@ -31,14 +31,9 @@ func PrintJsonWithTitle(title string, obj any) {
 	fmt.Println("", string(objStr))
 }
 
-func FireHttpRequest(method HttpMethod, url string, body any, timeout time.Duration) ([]byte, error) {
+func FireHttpRequest(method HttpMethod, url string, headers map[string]string, body any, timeout time.Duration) ([]byte, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
-
-	// Url validation
-	// if err := utils.UrlValidate(url); err != nil {
-	// 	return nil, err
-	// }
 
 	// Body validation if that method is not allowed
 	if err := utils.BodyValidate(string(method), body); err != nil {
@@ -49,6 +44,10 @@ func FireHttpRequest(method HttpMethod, url string, body any, timeout time.Durat
 	config := http.Header{
 		"Content-Type": {"application/json"},
 	}
+	for i := range headers {
+		config.Add(i, headers[i])
+	}
+
 	req, err := http.NewRequestWithContext(ctx, string(method), url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("http request config error: %v", err)

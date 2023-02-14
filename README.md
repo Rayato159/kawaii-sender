@@ -7,7 +7,7 @@ v0.1.0
 <h2>🧙 Functions List</h2>
 
 ```go
-FireHttpRequest(method HttpMethod, url string, body any, timeout time.Duration) ([]byte, error)
+FireHttpRequest(method HttpMethod, url string, headers map[string]string, body any, timeout time.Duration) ([]byte, error)
 PrintJson(obj any)
 PrintJsonWithTitle(title string, obj any)
 ```
@@ -43,9 +43,12 @@ func main() {
 	// The url is expect for http protocol only
 	url := "http://localhost:3000"
 	timeout := time.Second * 120
+	headers := map[string]string{
+		"Authorization": "xxxxxxxxxxxxxxxxxxxx",
+	}
 
 	// Http Get
-	g, err := kawaiihttp.FireHttpRequest(methodGet, url, nil, timeout)
+	g, err := kawaiihttp.FireHttpRequest(methodGet, url, headers, nil, timeout)
 	if err != nil {
 		panic(err)
 	}
@@ -55,7 +58,7 @@ func main() {
 	body := &testBody{
 		Message: "Hello, Post!",
 	}
-	p, err := kawaiihttp.FireHttpRequest(methodPost, url, body, timeout)
+	p, err := kawaiihttp.FireHttpRequest(methodPost, url, headers, body, timeout)
 	if err != nil {
 		panic(err)
 	}

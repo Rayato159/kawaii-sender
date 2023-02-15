@@ -1,9 +1,11 @@
 package kawaiihttp
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -48,7 +50,16 @@ func FireHttpRequest(method HttpMethod, url string, headers map[string]string, b
 		config.Add(i, headers[i])
 	}
 
-	req, err := http.NewRequestWithContext(ctx, string(method), url, nil)
+	req, err := http.NewRequestWithContext(ctx, string(method), url, func(body any) io.Reader {
+		if body == nil {
+			return nil
+		}
+		bodyJson, err := json.Marshal(&body)
+		if err != nil {
+			return nil
+		}
+		return bytes.NewReader(bodyJson)
+	}(body))
 	if err != nil {
 		return nil, fmt.Errorf("http request config error: %v", err)
 	}

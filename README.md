@@ -10,6 +10,7 @@ v0.1.0
 FireHttpRequest(method HttpMethod, url string, headers map[string]string, body any, timeout time.Duration) ([]byte, error)
 PrintJson(obj any)
 PrintJsonWithTitle(title string, obj any)
+WriteToJson(obj *Output)
 ```
 
 <h2>⌨️ Quickstart</h2>

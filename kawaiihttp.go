@@ -23,6 +23,11 @@ const (
 	Delete HttpMethod = "DELETE"
 )
 
+type Output struct {
+	Object any
+	Path   string
+}
+
 func PrintJson(obj any) {
 	objStr, _ := json.MarshalIndent(obj, "", "	")
 	fmt.Println(string(objStr))
@@ -86,4 +91,14 @@ func FireHttpRequest(method HttpMethod, url string, headers map[string]string, b
 		return nil, fmt.Errorf("response error: %v", err)
 	}
 	return resJson, nil
+}
+
+func WriteToJson(obj *Output) error {
+	bytes, _ := json.MarshalIndent(obj.Object, "", "\t")
+	err := ioutil.WriteFile(obj.Path, bytes, 0666)
+	if err != nil {
+		return fmt.Errorf("create file error: %v", err)
+	}
+	fmt.Printf("success, file: %s has been written\n", obj.Path)
+	return nil
 }
